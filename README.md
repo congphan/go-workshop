@@ -1,0 +1,2 @@
+# go-workshop
+Golang workshop
