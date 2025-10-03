@@ -24,8 +24,8 @@ func main() {
 
 	// spefic identifer technique in your domain model
 	var (
-		tenantUID    id.ULID = "01F8MECHZX3TBDSZ7XRADM79XE"
-		tenantUserID id.ULID = "01F8MECHZX3TBDSZ7XRADM79XF"
+		tenantUID    id.UUID = "01F8MECHZX3TBDSZ7XRADM79XE"
+		tenantUserID id.UUID = "01F8MECHZX3TBDSZ7XRADM79XF"
 	)
 
 	tenant, err := tenantRepo.FindTenant(tenantUID)
