@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/congphan/go-workshop/bad/id"
@@ -15,7 +16,7 @@ func main() {
 		primativeTenantUserUID int = 2
 	)
 
-	fmt.Println(primative.QueryTenantUser(primativeTenantUID, primativeTenantUserUID)) // Output: 3
+	fmt.Println(primative.QueryTenantUser(primativeTenantUserUID, primativeTenantUID)) // Output: -3: wrong order of parameters
 
 	var (
 		tenantRepo     tenant.TenantRepo     = &tenant.TenantRepoMock{}
@@ -28,17 +29,17 @@ func main() {
 		tenantUserID id.ULID = "01F8MECHZX3TBDSZ7XRADM79XF"
 	)
 
-	tenant, err := tenantRepo.FindTenant(tenantUID)
+	tenant, err := tenantRepo.FindTenant(tenantUserID) // mistakenly pass tenantUserID instead of tenantUID
 	if err != nil {
 		fmt.Println("Error finding tenant:", err)
 	}
 
-	tenantUser, err := tenantUserRepo.FindTenantUser(tenantUserID)
+	tenantUser, err := tenantUserRepo.FindTenantUser(tenantUID) // mistakenly pass tenantUID instead of tenantUserID
 	if err != nil {
 		fmt.Println("Error finding tenant user:", err)
 	}
 
-	tenantUsers, err := tenantUserRepo.FindTenantUsers(tenantUID)
+	tenantUsers, err := tenantUserRepo.FindTenantUsers(tenantUserID) // mistakenly pass tenantUserID instead of tenantUID
 	if err != nil {
 		fmt.Println("Error finding tenant users:", err)
 	}
@@ -49,5 +50,7 @@ func main() {
 
 	// context usage
 	ctx := primative.InitContextLoggger()
+	ctx = context.WithValue(ctx, "tenant_uid", "other_tenant_uid") // mistakenly override tenant_uid in context
+	ctx = context.WithValue(ctx, "user_id", "other_user_id")       // mistakenly override user_id in context
 	primative.PrintLogFromContext(ctx, "This is a log message.")
 }
