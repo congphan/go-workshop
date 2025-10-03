@@ -1,11 +1,11 @@
 package tenant
 
 import (
-	"github.com/congphan/go-workshop/bad/id"
+	"github.com/congphan/go-workshop/good/id"
 )
 
 type Tenant struct {
-	ID   id.ULID
+	ID   id.ID
 	Name string
 }
 
@@ -14,8 +14,8 @@ func (t *Tenant) String() string {
 }
 
 type TenantUser struct {
-	ID        id.ULID
-	TenantUID id.ULID
+	ID        id.ID
+	TenantUID id.ID
 	Name      string
 }
 
@@ -24,12 +24,12 @@ func (tu *TenantUser) String() string {
 }
 
 type TenantRepo interface {
-	FindTenant(tenantUID id.ULID) (*Tenant, error)
+	FindTenant(tenantUID id.ID) (*Tenant, error)
 }
 
 type TenantUserRepo interface {
-	FindTenantUsers(tenantUID id.ULID) ([]*TenantUser, error)
-	FindTenantUser(tenantUserID id.ULID) (*TenantUser, error)
+	FindTenantUsers(tenantUID id.ID) ([]*TenantUser, error)
+	FindTenantUser(tenantUserID id.ID) (*TenantUser, error)
 }
 
 var (
@@ -42,17 +42,17 @@ var (
 type TenantRepoMock struct{}
 type TenantUserRepoMock struct{}
 
-func (r *TenantRepoMock) FindTenant(tenantUID id.ULID) (*Tenant, error) {
+func (r *TenantRepoMock) FindTenant(tenantUID id.ID) (*Tenant, error) {
 	return &Tenant{ID: tenantUID, Name: "Mock Tenant"}, nil
 }
 
-func (r *TenantUserRepoMock) FindTenantUsers(tenantUID id.ULID) ([]*TenantUser, error) {
+func (r *TenantUserRepoMock) FindTenantUsers(tenantUID id.ID) ([]*TenantUser, error) {
 	return []*TenantUser{
 		{ID: "01F8MECHZX3TBDSZ7XRADM79XE", TenantUID: tenantUID, Name: "Mock User 1"},
 		{ID: "01F8MECHZX3TBDSZ7XRADM79XF", TenantUID: tenantUID, Name: "Mock User 2"},
 	}, nil
 }
 
-func (r *TenantUserRepoMock) FindTenantUser(tenantUserID id.ULID) (*TenantUser, error) {
+func (r *TenantUserRepoMock) FindTenantUser(tenantUserID id.ID) (*TenantUser, error) {
 	return &TenantUser{ID: tenantUserID, TenantUID: "01F8MECHZX3TBDSZ7XRADM79XE", Name: "Mock User"}, nil
 }

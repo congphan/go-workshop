@@ -5,9 +5,14 @@ import (
 	"fmt"
 )
 
+type (
+	TenantUID     int
+	TenantUserUID int
+)
+
 // query tenant user by tenantUID and tenantUserUID
-func QueryTenantUser(tenantUID int, tenantUserUID int) int {
-	return tenantUID - tenantUserUID // minus for demonstration purposes
+func QueryTenantUser(tenantUID TenantUID, tenantUserUID TenantUserUID) int {
+	return int(tenantUID) - int(tenantUserUID) // minus for demonstration purposes
 }
 
 const (
