@@ -4,4 +4,4 @@ type ULID string
 
 type UUID string
 
-type ID string
+type ID ULID
