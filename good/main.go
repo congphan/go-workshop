@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 
-	"github.com/congphan/go-workshop/good/id"
 	"github.com/congphan/go-workshop/good/primative"
 	"github.com/congphan/go-workshop/good/tenant"
 )
@@ -24,8 +23,8 @@ func main() {
 
 	// spefic identifer technique in your domain model
 	var (
-		tenantUID    id.ID = "01F8MECHZX3TBDSZ7XRADM79XE"
-		tenantUserID id.ID = "01F8MECHZX3TBDSZ7XRADM79XF"
+		tenantUID    tenant.TenantUID    = "01F8MECHZX3TBDSZ7XRADM79XE"
+		tenantUserID tenant.TenantUserID = "01F8MECHZX3TBDSZ7XRADM79XF"
 	)
 
 	tenant, err := tenantRepo.FindTenant(tenantUID)
