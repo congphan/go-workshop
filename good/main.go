@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/congphan/go-workshop/good/id"
@@ -49,5 +50,7 @@ func main() {
 
 	// context usage
 	ctx := primative.InitContextLoggger()
+	ctx = context.WithValue(ctx, "tenant_uid", "other_tenant_uid") // mistakenly override tenant_uid in context
+	ctx = context.WithValue(ctx, "user_id", "other_user_id")       // mistakenly override user_id in context
 	primative.PrintLogFromContext(ctx, "This is a log message.")
 }
